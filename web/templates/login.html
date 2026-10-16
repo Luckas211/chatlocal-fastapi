@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block titulo %}Entrar · CHATLOCAL{% endblock %}
+{% block conteudo %}
+<div class="cartao">
+  <h1>💬 Entrar</h1>
+  <p class="cartao-sub">Acesse o seu chat privado</p>
+
+  {% if erro %}<div class="aviso aviso-erro">{{ erro }}</div>{% endif %}
+
+  <form method="post" action="/login">
+    <label for="username">Nome de usuário</label>
+    <input id="username" name="username" type="text" required autofocus maxlength="50"
+           autocomplete="username" placeholder="ex.: ana">
+
+    <label for="password">Senha</label>
+    <input id="password" name="password" type="password" required maxlength="128"
+           autocomplete="current-password" placeholder="••••••••">
+
+    <button type="submit">Entrar</button>
+  </form>
+
+  <p class="cartao-rodape">Ainda não tem conta? <a href="/registo">Crie uma agora</a></p>
+</div>
+{% endblock %}

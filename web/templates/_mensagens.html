@@ -1,0 +1,19 @@
+{% if sessao_expirada %}
+<div class="aviso aviso-atencao">⏱️ Sua sessão expirou. <a href="/login">Entrar novamente</a></div>
+{% elif erro %}
+<div class="aviso aviso-erro">{{ erro }}</div>
+{% endif %}
+
+{% for m in mensagens %}
+<div class="bolha {{ 'eu' if eu and m.usuario_id == eu.id else 'outro' }}">
+  {% if not eu or m.usuario_id != eu.id %}
+  <span class="bolha-autor">{{ m.remetente.nome_usuario }}</span>
+  {% endif %}
+  <p>{{ m.conteudo }}</p>
+  <time>{{ m.data_envio.strftime('%H:%M') }}</time>
+</div>
+{% else %}
+{% if not erro and not sessao_expirada %}
+<p class="vazio">Nenhuma mensagem ainda — diga olá! 👋</p>
+{% endif %}
+{% endfor %}

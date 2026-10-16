@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block titulo %}Criar conta · CHATLOCAL{% endblock %}
+{% block conteudo %}
+<div class="cartao">
+  <h1>🆕 Criar conta</h1>
+  <p class="cartao-sub">Leva menos de um minuto</p>
+
+  {% if erro %}<div class="aviso aviso-erro">{{ erro }}</div>{% endif %}
+
+  <form method="post" action="/registo">
+    <label for="nome_usuario">Nome de usuário</label>
+    <input id="nome_usuario" name="nome_usuario" type="text" required minlength="3" maxlength="50"
+           autofocus autocomplete="username" placeholder="ex.: ana">
+
+    <label for="nome_completo">Nome completo</label>
+    <input id="nome_completo" name="nome_completo" type="text" required maxlength="120"
+           placeholder="ex.: Ana Souza">
+
+    <label for="senha">Senha</label>
+    <input id="senha" name="senha" type="password" required minlength="4" maxlength="128"
+           autocomplete="new-password" placeholder="pelo menos 4 caracteres">
+
+    <button type="submit">Criar conta</button>
+  </form>
+
+  <p class="cartao-rodape">Já tem conta? <a href="/login">Entrar</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,1 @@
+"""Pacote de páginas HTML do CHATLOCAL (Jinja2 + htmx, sem JavaScript escrito)."""

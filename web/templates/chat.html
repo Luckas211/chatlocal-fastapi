@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block titulo %}{{ contato.nome_usuario if contato else 'Chat' }} · CHATLOCAL{% endblock %}
+{% block conteudo %}
+<div class="chat">
+  <aside class="lateral">
+    <div class="perfil">
+      <span class="avatar">{{ eu.nome_usuario[:1]|upper }}</span>
+      <div>
+        <strong>{{ eu.nome_usuario }}</strong>
+        <small>{{ eu.nome_completo }}</small>
+      </div>
+      <form method="post" action="/logout">
+        <button class="sair" type="submit" title="Sair da conta">Sair</button>
+      </form>
+    </div>
+
+    <h2>Conversas</h2>
+    <ul class="contatos">
+      {% for c in contatos %}
+      <li>
+        <a class="contato {{ 'ativo' if contato and c.id == contato.id }}" href="/chat?contato_id={{ c.id }}">
+          <span class="avatar">{{ c.nome_usuario[:1]|upper }}</span>
+          <span>
+            <strong>{{ c.nome_usuario }}</strong>
+            <small>{{ c.nome_completo }}</small>
+          </span>
+        </a>
+      </li>
+      {% else %}
+      <li class="vazio">
+        Nenhum outro usuário ainda. Abra <a href="/registo">Criar conta</a> em uma aba anônima,
+        crie um segundo perfil e teste o chat!
+      </li>
+      {% endfor %}
+    </ul>
+
+    <div class="dica-api"><a href="/docs" target="_blank" rel="noopener">Ver a API no Swagger →</a></div>
+  </aside>
+
+  <section class="conversa">
+    {% if contato %}
+    <header class="conversa-topo">
+      <span class="avatar">{{ contato.nome_usuario[:1]|upper }}</span>
+      <div>
+        <strong>{{ contato.nome_usuario }}</strong>
+        <small>{{ contato.nome_completo }}</small>
+      </div>
+    </header>
+
+    {# Polling: carrega já na abertura (load) e depois a cada 3s,
+       sempre rolando para a última mensagem (scroll:bottom) #}
+    <div id="painel-mensagens" class="mensagens"
+         hx-get="/chat/mensagens/{{ contato.id }}"
+         hx-trigger="load, every 3s"
+         hx-swap="innerHTML scroll:bottom">
+      {% include "_mensagens.html" %}
+    </div>
+
+    <form class="enviar"
+          hx-post="/chat/enviar"
+          hx-target="#painel-mensagens"
+          hx-swap="innerHTML scroll:bottom"
+          hx-on::after-request="this.reset()">
+      <input type="hidden" name="destinatario_id" value="{{ contato.id }}">
+      <input type="text" name="conteudo" placeholder="Mensagem para {{ contato.nome_usuario }}…"
+             maxlength="500" required autocomplete="off" aria-label="Escrever mensagem">
+      <button type="submit">Enviar</button>
+    </form>
+    {% else %}
+    <div class="sem-conversa">
+      <p>👋</p>
+      <h2>Bem-vindo ao CHATLOCAL</h2>
+      <p>Crie um segundo usuário para começar a conversar.</p>
+      <a class="botao" href="/registo">Criar usuário</a>
+    </div>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

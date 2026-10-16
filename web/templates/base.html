@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}CHATLOCAL{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/vendor/htmx.min.js" defer></script>
+</head>
+<body>
+  <header class="topo">
+    <a class="marca" href="/chat">💬 CHATLOCAL</a>
+    <nav>
+      <a href="/docs" target="_blank" rel="noopener">API /docs</a>
+      {% if eu is defined and eu %}
+        <a href="/chat">Meu chat</a>
+      {% else %}
+        <a href="/login">Entrar</a>
+        <a class="botao botao-pequeno" href="/registo">Criar conta</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main class="conteudo">{% block conteudo %}{% endblock %}</main>
+
+  <footer class="rodape">
+    CHATLOCAL · FastAPI + Jinja2 + htmx — <a href="/">API REST</a> · sem JavaScript escrito à mão
+  </footer>
+</body>
+</html>

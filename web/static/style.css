@@ -1,0 +1,260 @@
+/* CHATLOCAL — visual dark, sem framework, escrito à mão */
+:root {
+  --fundo: #0e1117;
+  --superficie: #161b26;
+  --superficie-2: #1d2433;
+  --borda: #2a3247;
+  --texto: #e7eaf3;
+  --texto-suave: #94a0b8;
+  --destaque: #5b7cfa;
+  --destaque-forte: #4064f0;
+  --eu: #3550c8;
+  --erro: #ff6b6b;
+  --raio: 14px;
+  --topo: 56px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; }
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: var(--fundo);
+  color: var(--texto);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+a { color: var(--destaque); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ---------- topo ---------- */
+.topo {
+  height: var(--topo);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: var(--superficie);
+  border-bottom: 1px solid var(--borda);
+}
+.marca { font-weight: 700; font-size: 1.05rem; color: var(--texto); letter-spacing: .5px; }
+.marca:hover { text-decoration: none; color: var(--destaque); }
+.topo nav { display: flex; gap: 16px; align-items: center; }
+.topo nav a { color: var(--texto-suave); font-size: .92rem; }
+.topo nav a:hover { color: var(--texto); text-decoration: none; }
+
+.botao {
+  display: inline-block;
+  background: var(--destaque);
+  color: #fff;
+  padding: 9px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: 0;
+  cursor: pointer;
+}
+.botao:hover { background: var(--destaque-forte); text-decoration: none; }
+.botao-pequeno { padding: 6px 12px; font-size: .85rem; }
+
+.conteudo { flex: 1; display: flex; min-height: 0; }
+
+/* ---------- cartões de autenticação ---------- */
+.cartao {
+  width: min(400px, 92vw);
+  margin: 7vh auto;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  padding: 32px;
+}
+.cartao h1 { font-size: 1.4rem; margin-bottom: 4px; }
+.cartao-sub { color: var(--texto-suave); font-size: .92rem; margin-bottom: 14px; }
+.cartao label { display: block; font-size: .85rem; color: var(--texto-suave); margin: 14px 0 6px; }
+.cartao input {
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--borda);
+  background: var(--superficie-2);
+  color: var(--texto);
+  font-size: .95rem;
+}
+.cartao input:focus { outline: 2px solid var(--destaque); border-color: transparent; }
+.cartao button[type="submit"] { width: 100%; margin-top: 20px; padding: 12px; font-size: 1rem; }
+.cartao-rodape { margin-top: 18px; font-size: .88rem; color: var(--texto-suave); text-align: center; }
+
+/* ---------- chat ---------- */
+.chat { flex: 1; display: grid; grid-template-columns: 290px 1fr; min-height: 0; }
+
+.lateral {
+  background: var(--superficie);
+  border-right: 1px solid var(--borda);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto;
+}
+.perfil {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid var(--borda);
+}
+.perfil small, .contato small, .conversa-topo small {
+  display: block;
+  color: var(--texto-suave);
+  font-size: .78rem;
+}
+.perfil form { margin-left: auto; }
+.sair {
+  background: none;
+  border: 1px solid var(--borda);
+  color: var(--texto-suave);
+  border-radius: 8px;
+  padding: 5px 9px;
+  cursor: pointer;
+  font-size: .8rem;
+}
+.sair:hover { color: var(--erro); border-color: var(--erro); }
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--destaque), #8b5cf6);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #fff;
+  font-size: .95rem;
+}
+
+.lateral h2 {
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--texto-suave);
+  padding: 16px 16px 8px;
+}
+.contatos { list-style: none; }
+.contato {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 16px;
+  color: var(--texto);
+  border-left: 3px solid transparent;
+}
+.contato:hover { background: var(--superficie-2); text-decoration: none; }
+.contato.ativo { background: var(--superficie-2); border-left-color: var(--destaque); }
+.contato strong { font-size: .93rem; }
+.lateral .vazio { padding: 12px 16px; font-size: .85rem; color: var(--texto-suave); line-height: 1.5; }
+.dica-api { margin-top: auto; padding: 14px 16px; font-size: .82rem; border-top: 1px solid var(--borda); }
+
+.conversa { display: flex; flex-direction: column; min-height: 0; background: var(--fundo); }
+.conversa-topo {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 20px;
+  background: var(--superficie);
+  border-bottom: 1px solid var(--borda);
+}
+.conversa-topo strong { font-size: .98rem; }
+
+.mensagens {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scroll-behavior: smooth;
+}
+.bolha {
+  max-width: 72%;
+  padding: 9px 13px;
+  border-radius: 16px;
+  line-height: 1.45;
+  background: var(--superficie-2);
+  border: 1px solid var(--borda);
+  word-break: break-word;
+}
+.bolha p { font-size: .95rem; }
+.bolha time { display: block; font-size: .68rem; color: var(--texto-suave); margin-top: 4px; text-align: right; }
+.bolha-autor { display: block; font-size: .72rem; font-weight: 700; color: var(--destaque); margin-bottom: 3px; }
+.bolha.eu { align-self: flex-end; background: var(--eu); border-color: transparent; }
+.bolha.eu time { color: #cdd6ff; }
+.bolha.outro { align-self: flex-start; }
+
+.aviso {
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: .9rem;
+  background: var(--superficie-2);
+  border: 1px solid var(--borda);
+}
+.aviso-erro { background: rgba(255, 107, 107, .12); border-color: var(--erro); color: #ffb3b3; }
+.aviso-atencao { background: rgba(91, 124, 250, .12); border-color: var(--destaque); }
+.vazio { color: var(--texto-suave); font-size: .9rem; text-align: center; margin: auto; }
+
+.enviar {
+  display: flex;
+  gap: 10px;
+  padding: 14px 20px;
+  background: var(--superficie);
+  border-top: 1px solid var(--borda);
+}
+.enviar input[type="text"] {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--borda);
+  background: var(--superficie-2);
+  color: var(--texto);
+  font-size: .95rem;
+}
+.enviar input[type="text"]:focus { outline: 2px solid var(--destaque); border-color: transparent; }
+.enviar button {
+  padding: 0 22px;
+  border-radius: 999px;
+  border: 0;
+  background: var(--destaque);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+.enviar button:hover { background: var(--destaque-forte); }
+
+.sem-conversa { margin: auto; text-align: center; padding: 40px; }
+.sem-conversa p:first-child { font-size: 3rem; }
+.sem-conversa h2 { margin: 10px 0 6px; }
+.sem-conversa p { color: var(--texto-suave); margin-bottom: 18px; }
+
+/* ---------- rodapé ---------- */
+.rodape {
+  padding: 10px 20px;
+  font-size: .78rem;
+  color: var(--texto-suave);
+  background: var(--superficie);
+  border-top: 1px solid var(--borda);
+  text-align: center;
+}
+
+/* ---------- rolagem ---------- */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-thumb { background: var(--borda); border-radius: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* ---------- responsivo ---------- */
+@media (max-width: 760px) {
+  .chat { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+  .lateral { max-height: 34vh; border-right: 0; border-bottom: 1px solid var(--borda); }
+  .bolha { max-width: 88%; }
+}
